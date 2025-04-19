@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("roteiro")
+@RequestMapping("/roteiros")
 public class RoteiroController {
     private final RoteiroService roteiroService;
     private final PrecoService precoService;
@@ -30,7 +30,7 @@ public class RoteiroController {
         Roteiro novoRoteiro = roteiroService.salvar(roteiro);
         return ResponseEntity.ok(novoRoteiro);
     }
-    @GetMapping("preco")
+    @GetMapping("/{id}/precos")
     public ResponseEntity<ValorPassagemDTO> listarValorPassagem(@PathVariable("id") String id) {
         return roteiroService.buscarPorId(id).map(roteiro -> {
             ValorPassagemDTO valorDTO = precoService.calcularValorPorCidade(roteiro.getCidade());
